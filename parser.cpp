@@ -1,4 +1,5 @@
 #include <cmath>
+#include <functional>
 #include <iostream>
 #include <queue>
 #include <unordered_map>
@@ -6,82 +7,95 @@
 class Parse {
    private:
     std::queue<std::string>* tokens;
-    std::unordered_map<std::string, int> binary_priority = {
-        {"**", 7},
 
-        {"*", 6},  {"/", 6},  {"%", 6},
-
-        {"+", 5},  {"-", 5},
-
-        {"<", 4},  {"<=", 4}, {">", 4}, {">=", 4},
-
-        {"==", 3}, {"!=", 3},
-
-        {"&&", 2},
-
-        {"||", 1},
+    enum binary_operators {
+        POW = 1,
+        MULT,
+        DIV,
+        MOD,
+        PLUS,
+        MINUS,
+        LOWER,
+        LOWER_EQUAL,
+        HIGHER,
+        HIGHER_EQUAL,
+        EQUAL,
+        NOT_EQUAL,
+        AND,
+        OR
     };
 
+    std::unordered_map<std::string, int> to_enum = {
+        {"**", POW},   {"*", MULT},          {"/", DIV},    {"%", MOD},
+        {"+", PLUS},   {"-", MINUS},         {"<", LOWER},  {"<=", LOWER_EQUAL},
+        {">", HIGHER}, {">=", HIGHER_EQUAL}, {"==", EQUAL}, {"!=", NOT_EQUAL},
+        {"&&", AND},   {"||", OR},
+    };
+
+    int binary_priority(std::string binary_op) {
+        switch (to_enum[binary_op]) {
+            case POW:
+                return 7;
+            case MULT:
+                return 6;
+            case DIV:
+                return 6;
+            case MOD:
+                return 6;
+            case PLUS:
+                return 5;
+            case MINUS:
+                return 5;
+            case LOWER:
+                return 4;
+            case LOWER_EQUAL:
+                return 4;
+            case HIGHER:
+                return 4;
+            case HIGHER_EQUAL:
+                return 4;
+            case EQUAL:
+                return 3;
+            case NOT_EQUAL:
+                return 3;
+            case AND:
+                return 2;
+            case OR:
+                return 1;
+        }
+
+        return 0;
+    }
     // evaluate left and right operands within their operator
     double eval_binary(double left, double right, std::string binary_op) {
-        int priority = binary_priority[binary_op];
-
-        switch (priority) {
-            case 7:
+        switch (to_enum[binary_op]) {
+            case POW:
                 return std::pow(left, right);
-
-            case 6:
-                if (binary_op == "*") {
-                    return left * right;
-                }
-
-                if (binary_op == "/") {
-                    return left / right;
-                }
-
-                if (binary_op == "%") {
-                    return std::fmod(left, right);
-                }
-
-            case 5:
-                if (binary_op == "+") {
-                    return left + right;
-                }
-
-                if (binary_op == "-") {
-                    return left - right;
-                }
-
-            case 4:
-                if (binary_op == "<") {
-                    return left < right;
-                }
-
-                if (binary_op == "<=") {
-                    return left <= right;
-                }
-
-                if (binary_op == ">") {
-                    return left > right;
-                }
-
-                if (binary_op == ">=") {
-                    return left >= right;
-                }
-
-            case 3:
-                if (binary_op == "==") {
-                    return left == right;
-                }
-
-                if (binary_op == "!=") {
-                    return left != right;
-                }
-
-            case 2:
+            case MULT:
+                return left * right;
+            case DIV:
+                return left / right;
+            case MOD:
+                return std::fmod(left, right);
+            case PLUS:
+                return left + right;
+            case MINUS:
+                return left - right;
+            case LOWER:
+                return left < right;
+            case LOWER_EQUAL:
+                return left <= right;
+            case HIGHER:
+                return left > right;
+            case HIGHER_EQUAL:
+                return left >= right;
+            case EQUAL:
+                return left == right;
+            case NOT_EQUAL:
+                return left != right;
+            case AND:
                 return left && right;
-
-            case 1:
+            case OR:
                 return left || right;
         }
 
@@ -113,7 +127,7 @@ class Parse {
             return !is_right_associative(token);
         }
 
-        return binary_priority[token] <= binary_priority[previous_token];
+        return binary_priority(token) <= binary_priority(previous_token);
     }
 
     double parse_pratt(std::string previous_token = "") {
@@ -142,7 +156,7 @@ class Parse {
 };
 
 int main() {
-    std::queue<std::string> q({"2"});
+    std::queue<std::string> q({"7", "*", "4", "+", "2"});
     Parse expr = Parse(&q);
     std::cout << expr.result() << '\n';
 }
