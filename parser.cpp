@@ -7,7 +7,7 @@ class Parse {
    private:
     std::queue<std::string>* tokens;
 
-    enum binary_operators {
+    enum operators {
         POW = 1,
         MULT,
         DIV,
@@ -243,7 +243,7 @@ class Parse {
 };
 
 int main() {
-    std::queue<std::string> q({"sin", "0.5", "+", "2"});
+    std::queue<std::string> q({"-", "0.5", "**", "2"});
     Parse expr = Parse(&q);
     std::cout << expr.result() << '\n';
 }
