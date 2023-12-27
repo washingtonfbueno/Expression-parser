@@ -53,7 +53,7 @@ export class Lexer {
 
     allTokensValid() {
         for (let token of this.tokens) {
-            if (token.type.includes("error")) {
+            if (token.isEqualType(["error"])) {
                 return false;
             }
         }

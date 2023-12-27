@@ -10,8 +10,8 @@ import {
 interface ContextData {
     expressionInput: string;
     setExpressionInput: Dispatch<SetStateAction<string>>;
-    speedInput: string;
-    setSpeedInput: Dispatch<SetStateAction<string>>;
+    expressionOutput: string[];
+    setExpressionOutput: Dispatch<SetStateAction<string[]>>;
 }
 
 interface Props {
@@ -22,15 +22,15 @@ export const InputContext = createContext<ContextData | undefined>(undefined);
 
 export const InputContextProvider: NextPage<Props> = ({ children }) => {
     const [expressionInput, setExpressionInput] = useState<string>("");
-    const [speedInput, setSpeedInput] = useState<string>("");
+    const [expressionOutput, setExpressionOutput] = useState<string[]>([]);
 
     return (
         <InputContext.Provider
             value={{
                 expressionInput,
                 setExpressionInput,
-                speedInput,
-                setSpeedInput,
+                expressionOutput,
+                setExpressionOutput,
             }}
         >
             {children}

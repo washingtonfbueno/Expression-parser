@@ -3,7 +3,6 @@
 import { InputContextProvider } from "./contexts/InputContext";
 import { Buttons } from "./components/Buttons";
 import { InputSpace } from "./components/InputSpace";
-import { Speed } from "./components/Speed";
 import { StartButton } from "./components/StartButton";
 import { OutputSpace } from "./components/OutputSpace";
 
@@ -16,8 +15,6 @@ export default function Home() {
                         <InputSpace />
                         <StartButton />
                     </div>
-
-                    <Speed />
 
                     <OutputSpace />
 

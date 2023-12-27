@@ -176,7 +176,7 @@ export class Parser {
         }
 
         throw new Error(
-            `Invalid syntax -> parsing couldn't be finished because ${token.value} is not valid is this expression`
+            `Invalid syntax -> parsing couldn't be finished because ${token.value} is not valid in this expression`
         );
     }
 }

@@ -6,12 +6,16 @@ import { evaluateExpression } from "../helper/pratt-parser";
 interface Props {}
 
 export const StartButton: NextPage<Props> = (props) => {
-    const { expressionInput, setExpressionInput } = useContext(InputContext)!;
+    const { expressionInput, expressionOutput, setExpressionOutput } =
+        useContext(InputContext)!;
 
     return (
         <button
             onClick={() => {
-                evaluateExpression(expressionInput);
+                setExpressionOutput([
+                    ...expressionOutput,
+                    evaluateExpression(expressionInput),
+                ]);
             }}
             className="p-2 w-[4rem] h-[4rem] aspect-square rounded-lg text-center text-xl bg-blue-400 hover:bg-blue-200 text-white"
         >
