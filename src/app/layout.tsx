@@ -7,6 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
     title: "Expression parser",
     description: "",
+    icons: "faviconn.ico",
 };
 
 export default function RootLayout({
