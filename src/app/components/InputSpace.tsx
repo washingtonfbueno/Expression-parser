@@ -7,7 +7,7 @@ export const InputSpace = () => {
         <textarea
             onChange={(event) => setExpressionInput(event.target.value)}
             value={expressionInput}
-            className="flex-grow border-blue-400 border-2 border-dashed rounded-sm px-6 py-1 focus:outline-none resize-none"
+            className="flex-grow border-blue-400 border-2 border-dashed rounded-sm px-6 py-1 focus:outline-none resize-none text-sm"
         />
     );
 };

@@ -15,7 +15,7 @@ export const OutputSpace = () => {
     return (
         <div
             ref={outputSpaceRef}
-            className="flex flex-col border-blue-400 border-2 rounded-sm pl-4 pr-6 py-2 h-[8rem] overflow-auto"
+            className="flex flex-col border-blue-400 border-2 rounded-sm pl-4 pr-6 py-2 h-[8rem] space-y-2 overflow-auto text-sm"
         >
             {expressionOutput.map((output, index) => (
                 <div key={index}>
